@@ -19,8 +19,9 @@
 .profile__name {
   margin: 0px 0px 12px;
   color: #212121;
-  font-family: Poppins, serif;
+  font-family: Poppins-Medium, serif;
   font-size: 32px;
+  font-weight: 500;
   line-height: 1;
   text-underline-position: from-font;
   text-decoration-skip-ink: none;
@@ -52,6 +53,8 @@
   opacity: 0.7;
   padding: 0;
   gap: 8px;
+  font-weight: 500;
+  line-height: 16px;
 }
 
 .profile__edit-button:hover {
