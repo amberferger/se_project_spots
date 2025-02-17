@@ -21,14 +21,26 @@
   color: #212121;
   font-family: Poppins, serif;
   font-size: 32px;
-  line-height: 32px;
+  line-height: 1;
   text-underline-position: from-font;
   text-decoration-skip-ink: none;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  line-clamp: 3;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
 }
 
 .profile__description {
   margin: 0;
   color: #212121b2;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  line-clamp: 3;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
 }
 
 .profile__edit-button {
@@ -65,4 +77,44 @@
 
 .profile__new-post-button:hover {
   background: #212121cc;
+}
+
+@media screen and (max-width: 627px) {
+  .profile {
+    flex-direction: column;
+    max-width: 288px;
+    text-align: center;
+    align-items: center;
+    padding: 20px 0px;
+  }
+
+  .profile__avatar {
+    margin: 0px 0px 12px;
+    height: 80px;
+    width: 80px;
+  }
+
+  .profile__name {
+    font-size: 20px;
+    margin-bottom: 6px;
+    max-width: 288px;
+  }
+
+  .profile__description {
+    margin-bottom: 32px;
+    max-width: 288px;
+  }
+
+  .profile__column {
+    margin: 0px 0px 20px;
+  }
+
+  .profile__edit-button {
+    margin: auto;
+  }
+
+  .profile__new-post-button {
+    margin: auto;
+    width: 100%;
+  }
 }
