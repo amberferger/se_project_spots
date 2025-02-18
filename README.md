@@ -6,7 +6,7 @@
 This project is a social media site where a user can post pictures and receive likes from others. A profile can be customized with an avatar and a summary. 
 
 
-** Technologies & Techniques **
+**Technologies & Techniques**
 
 This project is made so all the elements are displayed correctly on popular screen sizes. It also includes the use of grid layout to dynamically arrange the images on the screen. 
   
@@ -20,5 +20,5 @@ This project is made so all the elements are displayed correctly on popular scre
 
 **Video Overview**
 
-* [Link to View Overview of Project](https://drive.google.com/file/d/1BeBgXcJ67gcYCCv51p85DDcS7K56Zmpg/view?usp=sharing)
+* [Link to Video Overview of Project](https://drive.google.com/file/d/1BeBgXcJ67gcYCCv51p85DDcS7K56Zmpg/view?usp=sharing)
 
