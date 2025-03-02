@@ -37,6 +37,7 @@
   height: 40px;
   width: 40px;
   border: none;
+  cursor: pointer;
 }
 
 .modal__title {

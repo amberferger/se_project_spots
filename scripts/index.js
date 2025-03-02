@@ -24,3 +24,23 @@ const initialCards = [
     link: "https://unsplash.com/photos/brown-concrete-building-near-river-during-daytime-TmDEY0DtQd0",
   },
 ];
+
+const profileEditButton = document.querySelector(".profile__edit-button");
+const editProfileModal = document.querySelector("#edit-profile-modal");
+const profileCloseButton = editProfileModal.querySelector(
+  ".modal__close-button"
+);
+
+function openModalProfile() {
+  editProfileModal.classList.add("modal__opened");
+}
+
+function closeModalProfile() {
+  editProfileModal.classList.remove("modal__opened");
+}
+
+/* open modal */
+profileEditButton.addEventListener("click", openModalProfile);
+
+/* close modal */
+profileCloseButton.addEventListener("click", closeModalProfile);
