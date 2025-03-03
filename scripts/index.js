@@ -1,3 +1,6 @@
+/****************************
+CARD INFORMATION
+****************************/
 const initialCards = [
   {
     name: "Banff",
@@ -25,22 +28,32 @@ const initialCards = [
   },
 ];
 
+/****************************
+ OPEN AND CLOSE THE MODAL
+****************************/
 const profileEditButton = document.querySelector(".profile__edit-button");
 const editProfileModal = document.querySelector("#edit-profile-modal");
 const profileCloseButton = editProfileModal.querySelector(
   ".modal__close-button"
 );
 
+const nameInput = editProfileModal.querySelector("#profile-name-input");
+const jobInput = editProfileModal.querySelector("#profile-description-input");
+const profileName = document.querySelector(".profile__name");
+const profileJob = document.querySelector(".profile__description");
+
 function openModalProfile() {
   editProfileModal.classList.add("modal__opened");
+  nameInput.value = profileName.textContent;
+  jobInput.value = profileJob.textContent;
 }
 
 function closeModalProfile() {
   editProfileModal.classList.remove("modal__opened");
 }
 
-/* open modal */
+// open modal
 profileEditButton.addEventListener("click", openModalProfile);
 
-/* close modal */
+// close modal
 profileCloseButton.addEventListener("click", closeModalProfile);
