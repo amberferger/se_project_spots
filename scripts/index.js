@@ -33,6 +33,7 @@ const initialCards = [
 ****************************/
 const profileEditButton = document.querySelector(".profile__edit-button");
 const editProfileModal = document.querySelector("#edit-profile-modal");
+const profileFormElement = editProfileModal.querySelector(".modal__form");
 const profileCloseButton = editProfileModal.querySelector(
   ".modal__close-button"
 );
@@ -52,8 +53,19 @@ function closeModalProfile() {
   editProfileModal.classList.remove("modal__opened");
 }
 
+function handleProfileFormSubmit(evt) {
+  evt.preventDefault();
+
+  profileName.textContent = nameInput.value;
+  profileJob.textContent = jobInput.value;
+  closeModalProfile();
+}
+
 // open modal
 profileEditButton.addEventListener("click", openModalProfile);
 
 // close modal
 profileCloseButton.addEventListener("click", closeModalProfile);
+
+// save new name & description
+profileFormElement.addEventListener("submit", handleProfileFormSubmit);
