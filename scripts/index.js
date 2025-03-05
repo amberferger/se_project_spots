@@ -50,13 +50,13 @@ FUNCTIONS
 ****************************/
 
 function openModalProfile() {
-  editProfileModal.classList.add("modal__opened");
+  editProfileModal.classList.add("modal_opened");
   nameInput.value = profileName.textContent;
   jobInput.value = profileJob.textContent;
 }
 
 function closeModalProfile() {
-  editProfileModal.classList.remove("modal__opened");
+  editProfileModal.classList.remove("modal_opened");
 }
 
 function handleProfileFormSubmit(evt) {

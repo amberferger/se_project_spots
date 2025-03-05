@@ -13,7 +13,7 @@
   padding: 0px 10px;
 }
 
-.modal__opened {
+.modal_opened {
   visibility: visible;
 }
 
@@ -63,6 +63,8 @@
   line-height: 1;
   font-weight: 500;
   padding: 16px 12px;
+  border-radius: 8px;
+  border: 1px solid #21212166;
 }
 
 .modal__submit-button {
@@ -73,6 +75,7 @@
   padding: 18px 32px;
   color: #fcf5e5;
   line-height: 16px;
+  border: none;
 }
 
 @media screen and (max-width: 627px) {
