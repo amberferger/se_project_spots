@@ -59,25 +59,37 @@
       <footer class="footer">
         <p class="footer__text">2024 © Spots</p>
       </footer>
-    <div class="modal" id="edit-profile-modal"> <!-- add modal__opened to default to having the popup opened-->
-      <div class="modal__container">
-        <h2 class="modal__title">Edit profile</h2>
-        <form class="modal__form" name="edit-profile">
-          <button class="modal__close-button" type="button"></button>
-          <label class="modal__label" for="profile-name-input">
-            Name
-            <input class="modal__input" id="profile-name-input" type="text" placeholder="Type your name" required></input>
-          </label>
-          <label class="modal__label" for="profile-description-input">
-            Description
-            <input class="modal__input" id="profile-description-input" type="text" placeholder="Describe yourself" required></input>
-          </label>
-          <button class="modal__submit-button" type="submit">Save</button>
-        </form>
-
+      <div class="modal" id="edit-profile-modal">
+        <!-- add modal__opened to default to having the popup opened-->
+        <div class="modal__container">
+          <h2 class="modal__title">Edit profile</h2>
+          <form class="modal__form" name="edit-profile">
+            <button class="modal__close-button" type="button"></button>
+            <label class="modal__label" for="profile-name-input">
+              Name
+              <input
+                class="modal__input"
+                id="profile-name-input"
+                type="text"
+                placeholder="Type your name"
+                required
+              />
+            </label>
+            <label class="modal__label" for="profile-description-input">
+              Description
+              <input
+                class="modal__input"
+                id="profile-description-input"
+                type="text"
+                placeholder="Describe yourself"
+                required
+              />
+            </label>
+            <button class="modal__submit-button" type="submit">Save</button>
+          </form>
+        </div>
       </div>
     </div>
-    </div>
-  <script src="./scripts/index.js" defer></script>
+    <script src="./scripts/index.js" defer></script>
   </body>
 </html>
