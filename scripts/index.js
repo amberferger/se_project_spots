@@ -32,11 +32,15 @@ const initialCards = [
 VARIABLES
 ****************************/
 const profileEditButton = document.querySelector(".profile__edit-button");
+const newPostButton = document.querySelector(".profile__new-post-button");
 const editProfileModal = document.querySelector("#edit-profile-modal");
+const createPostModal = document.querySelector("#new-post-modal");
 const profileFormElement = editProfileModal.querySelector(".modal__form");
 const profileCloseButton = editProfileModal.querySelector(
   ".modal__close-button"
 );
+const postFormElement = createPostModal.querySelector(".modal__form");
+const postCloseButton = createPostModal.querySelector(".modal__close-button");
 
 const nameInput = editProfileModal.querySelector("#profile-name-input");
 const jobInput = editProfileModal.querySelector("#profile-description-input");
@@ -49,22 +53,22 @@ const cardsList = document.querySelector(".cards__list");
 FUNCTIONS
 ****************************/
 
-function openModalProfile() {
-  editProfileModal.classList.add("modal_opened");
+function openModalProfile(modal) {
+  modal.classList.add("modal_opened");
   nameInput.value = profileName.textContent;
   jobInput.value = profileJob.textContent;
 }
 
-function closeModalProfile() {
-  editProfileModal.classList.remove("modal_opened");
+function closeModalProfile(modal) {
+  modal.classList.remove("modal_opened");
 }
 
-function handleProfileFormSubmit(evt) {
+function handleProfileFormSubmit(evt, modal) {
   evt.preventDefault();
 
   profileName.textContent = nameInput.value;
   profileJob.textContent = jobInput.value;
-  closeModalProfile();
+  closeModalProfile(modal);
 }
 
 function getCardElement(data) {
@@ -86,17 +90,32 @@ function getCardElement(data) {
 ACTIONS
 ****************************/
 
-// open modal
-profileEditButton.addEventListener("click", openModalProfile);
+// open profile modal
+profileEditButton.addEventListener("click", () => {
+  openModalProfile(editProfileModal);
+});
 
-// close modal
-profileCloseButton.addEventListener("click", closeModalProfile);
+// open new post modal
+newPostButton.addEventListener("click", () => {
+  openModalProfile(createPostModal);
+});
 
-// save new name & description
-profileFormElement.addEventListener("submit", handleProfileFormSubmit);
+// close profile modal
+profileCloseButton.addEventListener("click", () => {
+  closeModalProfile(editProfileModal);
+});
+
+// close new post modal
+postCloseButton.addEventListener("click", () => {
+  closeModalProfile(createPostModal);
+});
+
+// save new name & description in profile modal
+profileFormElement.addEventListener("submit", function (evt) {
+  handleProfileFormSubmit(evt, editProfileModal);
+});
 
 // create card content
-
 initialCards.forEach(function (item) {
   const cardContent = getCardElement(item);
   cardsList.prepend(cardContent);
