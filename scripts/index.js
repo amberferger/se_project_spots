@@ -97,7 +97,7 @@ profileFormElement.addEventListener("submit", handleProfileFormSubmit);
 
 // create card content
 
-for (const item of initialCards) {
+initialCards.forEach(function (item) {
   const cardContent = getCardElement(item);
   cardsList.prepend(cardContent);
-}
+});
