@@ -56,15 +56,23 @@ const postCaptionInput = createPostModal.querySelector("#caption-input");
 const cardTemplate = document.querySelector("#card-template");
 const cardsList = document.querySelector(".cards__list");
 
+// card elements
+const previewModal = document.querySelector("#preview-modal");
+const previewModalImage = previewModal.querySelector(".modal__image");
+const previewModalCaption = previewModal.querySelector(".modal__caption");
+const previewModalCloseButtom = previewModal.querySelector(
+  ".modal__close-button_type_preview"
+);
+
 /****************************
 FUNCTIONS
 ****************************/
 
-function openModalProfile(modal) {
+function openModal(modal) {
   modal.classList.add("modal_opened");
 }
 
-function closeModalProfile(modal) {
+function closeModal(modal) {
   modal.classList.remove("modal_opened");
 }
 
@@ -72,7 +80,7 @@ function handleProfileFormSubmit(evt) {
   evt.preventDefault();
   profileName.textContent = nameInput.value;
   profileJob.textContent = jobInput.value;
-  closeModalProfile(editProfileModal);
+  closeModal(editProfileModal);
 }
 
 function handlePostFormSubmit(evt) {
@@ -83,7 +91,7 @@ function handlePostFormSubmit(evt) {
   const newCardContent = getCardElement(newData);
   cardsList.prepend(newCardContent);
 
-  closeModalProfile(createPostModal);
+  closeModal(createPostModal);
 }
 
 function getCardElement(data) {
@@ -111,6 +119,14 @@ function getCardElement(data) {
     cardElement.remove();
   });
 
+  // card preview
+  cardImage.addEventListener("click", () => {
+    openModal(previewModal);
+    previewModalImage.src = data.link;
+    previewModalImage.alt = data.name;
+    previewModalCaption.textContent = data.name;
+  });
+
   return cardElement;
 }
 
@@ -122,22 +138,27 @@ ACTIONS
 profileEditButton.addEventListener("click", () => {
   nameInput.value = profileName.textContent;
   jobInput.value = profileJob.textContent;
-  openModalProfile(editProfileModal);
+  openModal(editProfileModal);
 });
 
 // open new post modal
 newPostButton.addEventListener("click", () => {
-  openModalProfile(createPostModal);
+  openModal(createPostModal);
 });
 
 // close profile modal
 profileCloseButton.addEventListener("click", () => {
-  closeModalProfile(editProfileModal);
+  closeModal(editProfileModal);
 });
 
 // close new post modal
 postCloseButton.addEventListener("click", () => {
-  closeModalProfile(createPostModal);
+  closeModal(createPostModal);
+});
+
+// close preview image
+previewModalCloseButtom.addEventListener("click", () => {
+  closeModal(previewModal);
 });
 
 // save new name & description in profile modal
