@@ -31,21 +31,28 @@ const initialCards = [
 /****************************
 VARIABLES
 ****************************/
+
+// edit profile variables
 const profileEditButton = document.querySelector(".profile__edit-button");
-const newPostButton = document.querySelector(".profile__new-post-button");
 const editProfileModal = document.querySelector("#edit-profile-modal");
-const createPostModal = document.querySelector("#new-post-modal");
 const profileFormElement = editProfileModal.querySelector(".modal__form");
 const profileCloseButton = editProfileModal.querySelector(
   ".modal__close-button"
 );
-const postFormElement = createPostModal.querySelector(".modal__form");
-const postCloseButton = createPostModal.querySelector(".modal__close-button");
-
-const nameInput = editProfileModal.querySelector("#profile-name-input");
-const jobInput = editProfileModal.querySelector("#profile-description-input");
 const profileName = document.querySelector(".profile__name");
 const profileJob = document.querySelector(".profile__description");
+const nameInput = editProfileModal.querySelector("#profile-name-input");
+const jobInput = editProfileModal.querySelector("#profile-description-input");
+
+// new post variables
+const newPostButton = document.querySelector(".profile__new-post-button");
+const createPostModal = document.querySelector("#new-post-modal");
+const postFormElement = createPostModal.querySelector(".modal__form");
+const postCloseButton = createPostModal.querySelector(".modal__close-button");
+const postLinkInput = createPostModal.querySelector("#image-link-input");
+const postCaptionInput = createPostModal.querySelector("#caption-input");
+
+// card template variables
 const cardTemplate = document.querySelector("#card-template");
 const cardsList = document.querySelector(".cards__list");
 
@@ -55,20 +62,28 @@ FUNCTIONS
 
 function openModalProfile(modal) {
   modal.classList.add("modal_opened");
-  nameInput.value = profileName.textContent;
-  jobInput.value = profileJob.textContent;
 }
 
 function closeModalProfile(modal) {
   modal.classList.remove("modal_opened");
 }
 
-function handleProfileFormSubmit(evt, modal) {
+function handleProfileFormSubmit(evt) {
   evt.preventDefault();
-
   profileName.textContent = nameInput.value;
   profileJob.textContent = jobInput.value;
-  closeModalProfile(modal);
+  closeModalProfile(editProfileModal);
+}
+
+function handlePostFormSubmit(evt) {
+  evt.preventDefault();
+  const newData = { name: postCaptionInput.value, link: postLinkInput.value };
+
+  // add card to browser
+  const newCardContent = getCardElement(newData);
+  cardsList.prepend(newCardContent);
+
+  closeModalProfile(createPostModal);
 }
 
 function getCardElement(data) {
@@ -92,6 +107,8 @@ ACTIONS
 
 // open profile modal
 profileEditButton.addEventListener("click", () => {
+  nameInput.value = profileName.textContent;
+  jobInput.value = profileJob.textContent;
   openModalProfile(editProfileModal);
 });
 
@@ -111,9 +128,10 @@ postCloseButton.addEventListener("click", () => {
 });
 
 // save new name & description in profile modal
-profileFormElement.addEventListener("submit", function (evt) {
-  handleProfileFormSubmit(evt, editProfileModal);
-});
+profileFormElement.addEventListener("submit", handleProfileFormSubmit);
+
+// save image & caption form
+postFormElement.addEventListener("submit", handlePostFormSubmit);
 
 // create card content
 initialCards.forEach(function (item) {
