@@ -40,6 +40,11 @@
   cursor: pointer;
 }
 
+.modal__close-button:hover {
+  background-image: url("../images/close-icon-hover.svg");
+  opacity: 1;
+}
+
 .modal__title {
   font-size: 32px;
   line-height: 1;
@@ -65,6 +70,11 @@
   padding: 16px 12px;
   border-radius: 8px;
   border: 1px solid #21212166;
+  cursor: pointer;
+}
+
+.modal__input:hover {
+  border: 1px solid #212121;
 }
 
 .modal__submit-button {
@@ -76,6 +86,7 @@
   color: #fcf5e5;
   line-height: 16px;
   border: none;
+  cursor: pointer;
 }
 
 @media screen and (max-width: 627px) {
