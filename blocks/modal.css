@@ -155,4 +155,14 @@
   .modal__submit-button {
     width: 100%;
   }
+
+  .modal__container_type_preview {
+    padding: 0px;
+    max-width: 90vw;
+  }
+
+  .modal__close-button_type_preview {
+    top: -38px;
+    right: -7px;
+  }
 }

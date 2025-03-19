@@ -35,7 +35,7 @@ VARIABLES
 // edit profile variables
 const profileEditButton = document.querySelector(".profile__edit-button");
 const editProfileModal = document.querySelector("#edit-profile-modal");
-const profileFormElement = editProfileModal.querySelector(".modal__form");
+const profileFormElement = document.forms["edit-profile"];
 const profileCloseButton = editProfileModal.querySelector(
   ".modal__close-button"
 );
@@ -47,7 +47,7 @@ const jobInput = editProfileModal.querySelector("#profile-description-input");
 // new post variables
 const newPostButton = document.querySelector(".profile__new-post-button");
 const createPostModal = document.querySelector("#new-post-modal");
-const postFormElement = createPostModal.querySelector(".modal__form");
+const postFormElement = document.forms["new-post"];
 const postCloseButton = createPostModal.querySelector(".modal__close-button");
 const postLinkInput = createPostModal.querySelector("#image-link-input");
 const postCaptionInput = createPostModal.querySelector("#caption-input");
@@ -90,6 +90,9 @@ function handlePostFormSubmit(evt) {
   // add card to browser
   const newCardContent = getCardElement(newData);
   cardsList.prepend(newCardContent);
+
+  // reset input values
+  evt.target.reset();
 
   closeModal(createPostModal);
 }

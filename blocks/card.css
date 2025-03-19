@@ -49,6 +49,7 @@
 
 .card__like-button {
   background-image: url(../images/like-button.svg);
+  background-repeat: no-repeat;
   width: 23px;
   height: 20px;
   border: none;
@@ -65,6 +66,7 @@
 
 .card__like-button-liked {
   background-image: url(../images/like-button-liked.svg);
+  background-color: transparent;
   opacity: 1;
 }
 
