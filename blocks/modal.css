@@ -117,6 +117,10 @@
   border: 1px solid #212121;
 }
 
+.modal__error {
+  color: #ff0000b2;
+}
+
 .modal__submit-button {
   width: 156px;
   height: 52 px;

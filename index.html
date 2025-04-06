@@ -55,6 +55,7 @@
                     placeholder="Paste a link to the picture"
                     required
                   />
+                  <span class="modal__error"></span>
                 </label>
                 <label class="modal__label" for="caption-input">
                   Caption
@@ -64,8 +65,11 @@
                     name="caption"
                     type="text"
                     placeholder="Type your caption"
+                    minlength="2"
+                    maxlength="30"
                     required
                   />
+                  <span class="modal__error"></span>
                 </label>
                 <button class="modal__submit-button" type="submit">Save</button>
               </form>
@@ -105,8 +109,11 @@
                 id="profile-name-input"
                 type="text"
                 placeholder="Type your name"
+                minlength="2"
+                maxlength="40"
                 required
               />
+              <span class="modal__error"></span>
             </label>
             <label class="modal__label" for="profile-description-input">
               Description
@@ -115,8 +122,11 @@
                 id="profile-description-input"
                 type="text"
                 placeholder="Describe yourself"
+                minlength="2"
+                maxlength="200"
                 required
               />
+              <span class="modal__error"></span>
             </label>
             <button class="modal__submit-button" type="submit">Save</button>
           </form>
