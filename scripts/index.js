@@ -48,6 +48,7 @@ const jobInput = editProfileModal.querySelector("#profile-description-input");
 const newPostButton = document.querySelector(".profile__new-post-button");
 const createPostModal = document.querySelector("#new-post-modal");
 const postFormElement = document.forms["new-post"];
+const submitButton = postFormElement.querySelector(".modal__submit-button");
 const postCloseButton = createPostModal.querySelector(".modal__close-button");
 const postLinkInput = createPostModal.querySelector("#image-link-input");
 const postCaptionInput = createPostModal.querySelector("#caption-input");
@@ -56,7 +57,7 @@ const postCaptionInput = createPostModal.querySelector("#caption-input");
 const cardTemplate = document.querySelector("#card-template");
 const cardsList = document.querySelector(".cards__list");
 
-// card elements
+// preview image elements
 const previewModal = document.querySelector("#preview-modal");
 const previewModalImage = previewModal.querySelector(".modal__image");
 const previewModalCaption = previewModal.querySelector(".modal__caption");
@@ -93,6 +94,10 @@ function handlePostFormSubmit(evt) {
 
   // reset input values
   evt.target.reset();
+
+  // disable submit button
+  disableButton(submitButton);
+  submitButton.classList.add("modal__submit-button_type_inactive");
 
   closeModal(createPostModal);
 }
@@ -141,6 +146,7 @@ ACTIONS
 profileEditButton.addEventListener("click", () => {
   nameInput.value = profileName.textContent;
   jobInput.value = profileJob.textContent;
+  resetValidation(profileFormElement, [nameInput, jobInput]); // clear the validation errors
   openModal(editProfileModal);
 });
 
