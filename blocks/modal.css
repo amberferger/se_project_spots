@@ -117,6 +117,10 @@
   border: 1px solid #212121;
 }
 
+.modal__input_type_error {
+  border: 1px solid #ff000099;
+}
+
 .modal__error {
   color: #ff0000b2;
 }
@@ -131,6 +135,11 @@
   line-height: 16px;
   border: none;
   cursor: pointer;
+}
+
+.modal__submit-button_type_inactive {
+  background: #212121;
+  opacity: 50%;
 }
 
 @media screen and (max-width: 627px) {
