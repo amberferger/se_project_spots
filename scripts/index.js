@@ -184,8 +184,11 @@ previewModalCloseButton.addEventListener("click", () => {
 
 // close when clicking anywhere in the overlay
 allModals.forEach((modal) => {
-  modal.addEventListener("click", () => {
-    closeModal(modal);
+  modal.addEventListener("click", (event) => {
+    // Close only if clicking the overlay (modal background)
+    if (event.target === event.currentTarget) {
+      closeModal(modal);
+    }
   });
 });
 
