@@ -146,7 +146,7 @@ ACTIONS
 profileEditButton.addEventListener("click", () => {
   nameInput.value = profileName.textContent;
   jobInput.value = profileJob.textContent;
-  resetValidation(profileFormElement, [nameInput, jobInput]); // clear the validation errors
+  resetValidation(profileFormElement, [nameInput, jobInput], settings); // clear the validation errors
   openModal(editProfileModal);
 });
 
