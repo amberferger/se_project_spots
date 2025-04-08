@@ -9,7 +9,6 @@ const settings = {
 
 // displays input error
 const showInputError = (formElement, inputElement, errorMessage, config) => {
-  console.log(config.inputErrorClass);
   const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
   errorElement.textContent = errorMessage; // changes error message
   inputElement.classList.add(config.inputErrorClass); // styles the box when error occurs
@@ -17,7 +16,6 @@ const showInputError = (formElement, inputElement, errorMessage, config) => {
 
 // hides input error
 const hideInputError = (formElement, inputElement, config) => {
-  console.log(config.inputErrorClass);
   const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
   errorElement.textContent = ""; // removes error message
   inputElement.classList.remove(config.inputErrorClass);
@@ -53,11 +51,9 @@ const disableButton = (buttonElement) => {
 const toggleButtonState = (inputList, buttonElement, config) => {
   if (hasInvalidInput(inputList)) {
     disableButton(buttonElement); // disable button if 1+ invalid inputs
-    //buttonElement.classList.add("modal__submit-button_type_inactive");
     buttonElement.classList.add(config.inactiveButtonClass);
   } else {
     buttonElement.disabled = false;
-    //buttonElement.classList.remove("modal__submit-button_type_inactive");
     buttonElement.classList.remove(config.inactiveButtonClass);
   }
 };
@@ -71,8 +67,6 @@ const resetValidation = (formElement, inputList, config) => {
 
 // set the event listeners on the inputs
 const setEventListeners = (formElement, config) => {
-  //const inputList = Array.from(formElement.querySelectorAll(".modal__input"));
-  //const buttonElement = formElement.querySelector(".modal__submit-button");
   const inputList = Array.from(
     formElement.querySelectorAll(config.inputSelector)
   );

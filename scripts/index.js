@@ -31,6 +31,8 @@ const initialCards = [
 /****************************
 VARIABLES
 ****************************/
+// all modals
+const allModals = Array.from(document.querySelectorAll(".modal"));
 
 // edit profile variables
 const profileEditButton = document.querySelector(".profile__edit-button");
@@ -61,7 +63,7 @@ const cardsList = document.querySelector(".cards__list");
 const previewModal = document.querySelector("#preview-modal");
 const previewModalImage = previewModal.querySelector(".modal__image");
 const previewModalCaption = previewModal.querySelector(".modal__caption");
-const previewModalCloseButtom = previewModal.querySelector(
+const previewModalCloseButton = previewModal.querySelector(
   ".modal__close-button_type_preview"
 );
 
@@ -69,12 +71,22 @@ const previewModalCloseButtom = previewModal.querySelector(
 FUNCTIONS
 ****************************/
 
+const keyboardCloseModal = (evt, modal) => {
+  if (evt.key === "Escape") {
+    closeModal(modal);
+  }
+};
+
 function openModal(modal) {
   modal.classList.add("modal_opened");
+  document.addEventListener("keydown", (evt) => keyboardCloseModal(evt, modal));
 }
 
 function closeModal(modal) {
   modal.classList.remove("modal_opened");
+  document.removeEventListener("keydown", (evt) =>
+    keyboardCloseModal(evt, modal)
+  );
 }
 
 function handleProfileFormSubmit(evt) {
@@ -166,9 +178,19 @@ postCloseButton.addEventListener("click", () => {
 });
 
 // close preview image
-previewModalCloseButtom.addEventListener("click", () => {
+previewModalCloseButton.addEventListener("click", () => {
   closeModal(previewModal);
 });
+
+// close when clicking anywhere in the overlay
+allModals.forEach((modal) => {
+  modal.addEventListener("click", () => {
+    closeModal(modal);
+  });
+});
+
+// close when clicking escape key
+allModals.forEach((modal) => {});
 
 // save new name & description in profile modal
 profileFormElement.addEventListener("submit", handleProfileFormSubmit);
