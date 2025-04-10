@@ -50,7 +50,9 @@ const jobInput = editProfileModal.querySelector("#profile-description-input");
 const newPostButton = document.querySelector(".profile__new-post-button");
 const createPostModal = document.querySelector("#new-post-modal");
 const postFormElement = document.forms["new-post"];
-const submitButton = postFormElement.querySelector(".modal__submit-button");
+const newPostSubmitButton = postFormElement.querySelector(
+  ".modal__submit-button"
+);
 const postCloseButton = createPostModal.querySelector(".modal__close-button");
 const postLinkInput = createPostModal.querySelector("#image-link-input");
 const postCaptionInput = createPostModal.querySelector("#caption-input");
@@ -71,22 +73,22 @@ const previewModalCloseButton = previewModal.querySelector(
 FUNCTIONS
 ****************************/
 
-const keyboardCloseModal = (evt, modal) => {
+// escape button to close modal
+function handleEscape(evt) {
   if (evt.key === "Escape") {
-    closeModal(modal);
+    const openedPopup = document.querySelector(".modal_opened");
+    closeModal(openedPopup);
   }
-};
+}
 
 function openModal(modal) {
   modal.classList.add("modal_opened");
-  document.addEventListener("keydown", (evt) => keyboardCloseModal(evt, modal));
+  document.addEventListener("keydown", handleEscape); // allow modal to be closed when escape button is pressed
 }
 
 function closeModal(modal) {
   modal.classList.remove("modal_opened");
-  document.removeEventListener("keydown", (evt) =>
-    keyboardCloseModal(evt, modal)
-  );
+  document.removeEventListener("keydown", handleEscape); // remove escape button functionality
 }
 
 function handleProfileFormSubmit(evt) {
@@ -108,8 +110,7 @@ function handlePostFormSubmit(evt) {
   evt.target.reset();
 
   // disable submit button
-  disableButton(submitButton);
-  submitButton.classList.add("modal__submit-button_type_inactive");
+  disableButton(newPostSubmitButton, settings);
 
   closeModal(createPostModal);
 }
@@ -167,19 +168,13 @@ newPostButton.addEventListener("click", () => {
   openModal(createPostModal);
 });
 
-// close profile modal
-profileCloseButton.addEventListener("click", () => {
-  closeModal(editProfileModal);
-});
+// Find all close buttons
+const closeButtons = document.querySelectorAll(".modal__close-button");
 
-// close new post modal
-postCloseButton.addEventListener("click", () => {
-  closeModal(createPostModal);
-});
-
-// close preview image
-previewModalCloseButton.addEventListener("click", () => {
-  closeModal(previewModal);
+// close all modals
+closeButtons.forEach((button) => {
+  const popup = button.closest(".modal");
+  button.addEventListener("click", () => closeModal(popup));
 });
 
 // close when clicking anywhere in the overlay
@@ -191,9 +186,6 @@ allModals.forEach((modal) => {
     }
   });
 });
-
-// close when clicking escape key
-allModals.forEach((modal) => {});
 
 // save new name & description in profile modal
 profileFormElement.addEventListener("submit", handleProfileFormSubmit);
