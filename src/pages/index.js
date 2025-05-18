@@ -1,3 +1,12 @@
+import {
+  enableValidation,
+  settings,
+  disableButton,
+  resetValidation,
+} from "../scripts/validation.js";
+
+import "./index.css";
+
 /****************************
 CARD INFORMATION
 ****************************/
@@ -198,3 +207,5 @@ initialCards.forEach(function (item) {
   const cardContent = getCardElement(item);
   cardsList.prepend(cardContent);
 });
+
+enableValidation(settings);
