@@ -6,6 +6,19 @@ import {
 } from "../scripts/validation.js";
 
 import "./index.css";
+import { Api } from "../components/Api.js";
+import { apiKey } from "../utils/constants.js";
+
+/****************************
+fetch("https://around-api.en.tripleten-services.com/v1/cards", {
+  headers: {
+    authorization: "d7a3cf4b-71c7-49e9-96b1-6529171ed04e"
+  }
+})
+  .then(res => res.json())
+
+------ TOKEN: d7a3cf4b-71c7-49e9-96b1-6529171ed04e
+****************************/
 
 /****************************
 CARD INFORMATION
@@ -36,6 +49,15 @@ const initialCards = [
     link: "https://images.unsplash.com/photo-1610991136128-838ca3c5497b?q=80&w=2128&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
 ];
+
+// create class to call the API
+const api = new Api({
+  baseUrl: "https://around-api.en.tripleten-services.com/v1",
+  headers: {
+    authorization: apiKey,
+    "Content-Type": "application/json",
+  },
+});
 
 /****************************
 VARIABLES
