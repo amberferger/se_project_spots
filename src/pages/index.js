@@ -6,58 +6,38 @@ import {
 } from "../scripts/validation.js";
 
 import "./index.css";
-import { Api } from "../components/Api.js";
+import { Api } from "../utils/Api.js";
 import { apiKey } from "../utils/constants.js";
-
-/****************************
-fetch("https://around-api.en.tripleten-services.com/v1/cards", {
-  headers: {
-    authorization: "d7a3cf4b-71c7-49e9-96b1-6529171ed04e"
-  }
-})
-  .then(res => res.json())
-
------- TOKEN: d7a3cf4b-71c7-49e9-96b1-6529171ed04e
-****************************/
 
 /****************************
 CARD INFORMATION
 ****************************/
-const initialCards = [
-  {
-    name: "Banff",
-    link: "https://images.unsplash.com/photo-1503614472-8c93d56e92ce?q=80&w=2011&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  },
-  {
-    name: "Lisbon",
-    link: "https://images.unsplash.com/photo-1585208798174-6cedd86e019a?q=80&w=2073&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  },
-  {
-    name: "London",
-    link: "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  },
-  {
-    name: "Dublin",
-    link: "https://images.unsplash.com/photo-1518005068251-37900150dfca?q=80&w=2073&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  },
-  {
-    name: "Munich",
-    link: "https://images.unsplash.com/photo-1595867818082-083862f3d630?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  },
-  {
-    name: "Edinburgh",
-    link: "https://images.unsplash.com/photo-1610991136128-838ca3c5497b?q=80&w=2128&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  },
-];
-
-// create class to call the API
-const api = new Api({
-  baseUrl: "https://around-api.en.tripleten-services.com/v1",
-  headers: {
-    authorization: apiKey,
-    "Content-Type": "application/json",
-  },
-});
+// const initialCards = [
+//   {
+//     name: "Banff",
+//     link: "https://images.unsplash.com/photo-1503614472-8c93d56e92ce?q=80&w=2011&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+//   },
+//   {
+//     name: "Lisbon",
+//     link: "https://images.unsplash.com/photo-1585208798174-6cedd86e019a?q=80&w=2073&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+//   },
+//   {
+//     name: "London",
+//     link: "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+//   },
+//   {
+//     name: "Dublin",
+//     link: "https://images.unsplash.com/photo-1518005068251-37900150dfca?q=80&w=2073&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+//   },
+//   {
+//     name: "Munich",
+//     link: "https://images.unsplash.com/photo-1595867818082-083862f3d630?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+//   },
+//   {
+//     name: "Edinburgh",
+//     link: "https://images.unsplash.com/photo-1610991136128-838ca3c5497b?q=80&w=2128&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+//   },
+// ];
 
 /****************************
 VARIABLES
@@ -74,6 +54,7 @@ const profileCloseButton = editProfileModal.querySelector(
 );
 const profileName = document.querySelector(".profile__name");
 const profileJob = document.querySelector(".profile__description");
+const profileAvatar = document.querySelector(".profile__avatar");
 const nameInput = editProfileModal.querySelector("#profile-name-input");
 const jobInput = editProfileModal.querySelector("#profile-description-input");
 
@@ -101,6 +82,37 @@ const previewModalCloseButton = previewModal.querySelector(
 );
 
 /****************************
+PAGE SETUP
+****************************/
+
+// create class to call the API
+const api = new Api({
+  baseUrl: "https://around-api.en.tripleten-services.com/v1",
+  headers: {
+    authorization: apiKey,
+    "Content-Type": "application/json",
+  },
+});
+
+// create card content
+api
+  .getAppInfo()
+  .then(([cards, userInfo]) => {
+    // render initial cards
+    cards.forEach((item) => {
+      const cardContent = getCardElement(item);
+      cardsList.prepend(cardContent);
+    });
+
+    // set user profile
+    profileName.textContent = userInfo.name;
+    profileJob.textContent = userInfo.about;
+    profileAvatar.src = userInfo.avatar;
+  })
+  // if error when rendering cards, log to console
+  .catch(console.error);
+
+/****************************
 FUNCTIONS
 ****************************/
 
@@ -122,28 +134,45 @@ function closeModal(modal) {
   document.removeEventListener("keydown", handleEscape); // remove escape button functionality
 }
 
+// update profile name and description
 function handleProfileFormSubmit(evt) {
   evt.preventDefault();
-  profileName.textContent = nameInput.value;
-  profileJob.textContent = jobInput.value;
-  closeModal(editProfileModal);
+
+  api
+    .editUserInfo({ name: nameInput.value, about: jobInput.value })
+    .then((data) => {
+      profileName.textContent = data.name;
+      profileJob.textContent = data.about;
+      closeModal(editProfileModal);
+    })
+    .catch(console.error);
 }
 
+// add new card
 function handlePostFormSubmit(evt) {
   evt.preventDefault();
-  const newData = { name: postCaptionInput.value, link: postLinkInput.value };
 
-  // add card to browser
-  const newCardContent = getCardElement(newData);
-  cardsList.prepend(newCardContent);
+  api
+    .addCard({ name: postCaptionInput.value, link: postLinkInput.value })
+    .then((data) => {
+      const newData = {
+        name: data.name,
+        link: data.link,
+      };
 
-  // reset input values
-  evt.target.reset();
+      // add card to browser
+      const newCardContent = getCardElement(newData);
+      cardsList.prepend(newCardContent);
 
-  // disable submit button
-  disableButton(newPostSubmitButton, settings);
+      // reset input values
+      evt.target.reset();
 
-  closeModal(createPostModal);
+      // disable submit button
+      disableButton(newPostSubmitButton, settings);
+
+      closeModal(createPostModal);
+    })
+    .catch(console.error);
 }
 
 function getCardElement(data) {
@@ -223,11 +252,5 @@ profileFormElement.addEventListener("submit", handleProfileFormSubmit);
 
 // save image & caption form
 postFormElement.addEventListener("submit", handlePostFormSubmit);
-
-// create card content
-initialCards.forEach(function (item) {
-  const cardContent = getCardElement(item);
-  cardsList.prepend(cardContent);
-});
 
 enableValidation(settings);
