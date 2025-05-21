@@ -205,6 +205,17 @@ function handleDeleteCard(cardElement, cardId) {
   openModal(deleteModal);
 }
 
+// toggle like button
+function handleLike(evt, cardId) {
+  const isLiked = evt.target.classList.contains("card__like-button-liked");
+  api
+    .changeLikeStatus(cardId, isLiked)
+    .then(() => {
+      evt.target.classList.toggle("card__like-button-liked");
+    })
+    .catch(console.error);
+}
+
 function getCardElement(data) {
   // clone the template
   const cardElement = cardTemplate.content
@@ -215,20 +226,26 @@ function getCardElement(data) {
   const cardLikeButton = cardElement.querySelector(".card__like-button");
   const cardTrashButton = cardElement.querySelector(".card__trash-button");
 
+  // IF THE CARD IS LIKED, SET TH EINITIAL CLASS ON THE CARD
+
   // change image link, image alt text, and card title
   cardImage.src = data.link;
   cardImage.alt = data.name;
   cardTitle.textContent = data.name;
 
+  // set liked status to last saved
+  if (data.isLiked) {
+    cardLikeButton.classList.add("card__like-button-liked");
+  }
+
   // card like button
-  cardLikeButton.addEventListener("click", () => {
-    cardLikeButton.classList.toggle("card__like-button-liked");
+  cardLikeButton.addEventListener("click", (evt) => {
+    handleLike(evt, data._id);
   });
 
   // card trash button
   cardTrashButton.addEventListener("click", (evt) => {
     handleDeleteCard(cardElement, data._id);
-    //cardElement.remove();
   });
 
   // card preview

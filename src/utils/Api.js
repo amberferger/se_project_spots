@@ -53,6 +53,21 @@ class Api {
     });
   }
 
+  editProfilePicture(avatar) {
+    return fetch(`${this._baseUrl}/users/me/avatar`, {
+      method: "PATCH",
+      headers: this._headers,
+      body: JSON.stringify({
+        avatar,
+      }),
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Error: ${res.status}`);
+    });
+  }
+
   // add a new card
   addCard({ name, link }) {
     const addCardHeaders = {
@@ -78,6 +93,20 @@ class Api {
   deleteCard(cardId) {
     return fetch(`${this._baseUrl}/cards/${cardId}`, {
       method: "DELETE",
+      headers: this._headers,
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Error: ${res.status}`);
+    });
+  }
+
+  // liking & unliking card
+  changeLikeStatus(cardId, isLiked) {
+    const method = isLiked ? "DELETE" : "PUT";
+    return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
+      method: method,
       headers: this._headers,
     }).then((res) => {
       if (res.ok) {
