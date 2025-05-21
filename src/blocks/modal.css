@@ -40,6 +40,20 @@
   background-color: transparent;
 }
 
+.modal__container_type_delete {
+  width: 630px;
+  height: 172px;
+  border-radius: 8px;
+  padding: 32px 20px 116px;
+  justify-content: center;
+}
+
+.modal__button-container {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
 .modal__image {
   width: 100%;
   border-radius: 8px;
@@ -60,6 +74,9 @@
   border-radius: 8px;
 }
 
+/****************************
+MODAL BUTTONS
+****************************/
 .modal__close-button {
   position: absolute;
   top: 32px;
@@ -84,6 +101,58 @@
   right: -45.5px;
   opacity: 1;
 }
+.modal__close-button_type_delete {
+  background-image: url(../images/close-icon-delete.svg);
+  top: 0px;
+  right: -45.5px;
+  opacity: 1;
+}
+
+.modal__submit-button {
+  width: 156px;
+  height: 52px;
+  background: #212121;
+  border-radius: 8px;
+  padding: 18px 32px;
+  color: #fcf5e5;
+  line-height: 16px;
+  border: none;
+  cursor: pointer;
+}
+
+.modal__submit-button_type_inactive {
+  background: #212121;
+  opacity: 50%;
+}
+
+.modal__delete-button {
+  width: 156px;
+  height: 52px;
+  background: #ff6565;
+  border-radius: 8px;
+  padding: 18px 32px;
+  color: #212121;
+  border: none;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.modal__cancel-button {
+  width: 156px;
+  height: 52px;
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 18px 32px;
+  color: #212121;
+  border: 1px solid #212121;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.modal__cancel-button:hover {
+  background: #212121;
+  color: #ffffff;
+}
 
 .modal__title {
   font-size: 32px;
@@ -102,6 +171,15 @@
   color: #212121b2;
 }
 
+.modal__delete-confirmation {
+  font-size: 24px;
+  margin: 0px 0px 32px;
+  text-align: center;
+}
+
+/****************************
+MODAL INPUTS
+****************************/
 .modal__input {
   color: #212121;
   font-size: 20px;
@@ -125,23 +203,9 @@
   color: #ff0000b2;
 }
 
-.modal__submit-button {
-  width: 156px;
-  height: 52 px;
-  background: #212121;
-  border-radius: 8px;
-  padding: 18px 32px;
-  color: #fcf5e5;
-  line-height: 16px;
-  border: none;
-  cursor: pointer;
-}
-
-.modal__submit-button_type_inactive {
-  background: #212121;
-  opacity: 50%;
-}
-
+/****************************
+MEDIA SCREEN
+****************************/
 @media screen and (max-width: 627px) {
   .modal__container {
     padding: 12px;

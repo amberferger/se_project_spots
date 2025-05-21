@@ -73,6 +73,14 @@ const postCaptionInput = createPostModal.querySelector("#caption-input");
 const cardTemplate = document.querySelector("#card-template");
 const cardsList = document.querySelector(".cards__list");
 
+// variables to hold the selected card and ID -- will be defined when a user clicks on a card
+let selectedCard;
+let selectedCardID;
+
+// delete post
+const deleteModal = document.querySelector("#delete-modal");
+const deleteFormElement = document.forms["delete-post"];
+
 // preview image elements
 const previewModal = document.querySelector("#preview-modal");
 const previewModalImage = previewModal.querySelector(".modal__image");
@@ -175,6 +183,28 @@ function handlePostFormSubmit(evt) {
     .catch(console.error);
 }
 
+// delete card from screen
+function handleDeleteSubmit(evt) {
+  evt.preventDefault();
+  api
+    .deleteCard(selectedCardID)
+    .then(() => {
+      // remove the card from the DOM
+      selectedCard.remove();
+      // close the modal
+      closeModal(deleteModal);
+    })
+    .catch(console.error);
+}
+
+// open delete confirmation modal
+function handleDeleteCard(cardElement, cardId) {
+  // set the selected card & id to what was clicked
+  selectedCard = cardElement;
+  selectedCardID = cardId;
+  openModal(deleteModal);
+}
+
 function getCardElement(data) {
   // clone the template
   const cardElement = cardTemplate.content
@@ -196,8 +226,9 @@ function getCardElement(data) {
   });
 
   // card trash button
-  cardTrashButton.addEventListener("click", () => {
-    cardElement.remove();
+  cardTrashButton.addEventListener("click", (evt) => {
+    handleDeleteCard(cardElement, data._id);
+    //cardElement.remove();
   });
 
   // card preview
@@ -252,5 +283,8 @@ profileFormElement.addEventListener("submit", handleProfileFormSubmit);
 
 // save image & caption form
 postFormElement.addEventListener("submit", handlePostFormSubmit);
+
+// delete the card when clicking on the
+deleteFormElement.addEventListener("submit", handleDeleteSubmit);
 
 enableValidation(settings);
