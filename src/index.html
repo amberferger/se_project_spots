@@ -21,11 +21,20 @@
       <main class="content">
         <!-- PROFILE SECTION-->
         <section class="profile page__section">
-          <img
-            class="profile__avatar"
-            src="<%= require('./images/avatar.jpg')%>"
-            alt="Profile Avatar"
-          />
+          <div class="profile__avatar-container">
+            <button class="profile__avatar-button">
+              <img
+                class="profile__pencil-icon"
+                src="<%= require('./images/pencil-light-icon.svg')%>"
+                alt="Pencil icon"
+              />
+            </button>
+            <img
+              class="profile__avatar"
+              src="<%= require('./images/avatar.jpg')%>"
+              alt="Profile Avatar"
+            />
+          </div>
           <div class="profile__column">
             <h1 class="profile__name">Bessie Coleman</h1>
             <p class="profile__description">Civil Aviator</p>
@@ -84,6 +93,31 @@
           </div>
         </section>
 
+        <!-- EDIT AVATAR -->
+        <div class="modal" id="edit-avatar-modal">
+          <div class="modal__container">
+            <h2 class="modal__title">Edit profile avatar</h2>
+            <form class="modal__form" id="edit-avatar">
+              <button class="modal__close-button" type="button"></button>
+              <label class="modal__label" for="profile-avatar-input">
+                Profile Picture
+                <input
+                  class="modal__input"
+                  id="profile-avatar-input"
+                  type="url"
+                  placeholder="Paste the link to an image"
+                  required
+                />
+                <span
+                  class="modal__error"
+                  id="profile-avatar-input-error"
+                ></span>
+              </label>
+              <button class="modal__submit-button" type="submit">Save</button>
+            </form>
+          </div>
+        </div>
+
         <!-- CARDS SECTION-->
         <section class="cards page__section">
           <ul class="cards__list">
@@ -101,6 +135,8 @@
           </ul>
         </section>
       </main>
+
+      <!-- FOOTER -->
       <footer class="footer">
         <p class="footer__text">2024 © Spots</p>
       </footer>

@@ -46,40 +46,48 @@ VARIABLES
 const allModals = Array.from(document.querySelectorAll(".modal"));
 
 // edit profile variables
-const profileEditButton = document.querySelector(".profile__edit-button");
+const editProfileButton = document.querySelector(".profile__edit-button");
 const editProfileModal = document.querySelector("#edit-profile-modal");
-const profileFormElement = document.forms["edit-profile"];
-const profileCloseButton = editProfileModal.querySelector(
+const editProfileForm = document.forms["edit-profile"];
+const editProfileCloseButton = editProfileModal.querySelector(
   ".modal__close-button"
 );
 const profileName = document.querySelector(".profile__name");
 const profileJob = document.querySelector(".profile__description");
 const profileAvatar = document.querySelector(".profile__avatar");
-const nameInput = editProfileModal.querySelector("#profile-name-input");
-const jobInput = editProfileModal.querySelector("#profile-description-input");
+const profileNameInput = editProfileModal.querySelector("#profile-name-input");
+const profileJobInput = editProfileModal.querySelector(
+  "#profile-description-input"
+);
+
+// edit avatar variables
+const editAvatarButton = document.querySelector(".profile__avatar-button");
+const editAvatarModal = document.querySelector("#edit-avatar-modal");
+const editAvatarForm = document.forms["edit-avatar"];
+const editAvatarInput = editAvatarModal.querySelector("#profile-avatar-input");
+const editAvatarSubmitButton = editAvatarModal.querySelector(
+  ".modal__submit-button"
+);
+const editAvatarCloseButton = editAvatarModal.querySelector(
+  ".modal__close-button"
+);
 
 // new post variables
 const newPostButton = document.querySelector(".profile__new-post-button");
-const createPostModal = document.querySelector("#new-post-modal");
-const postFormElement = document.forms["new-post"];
-const newPostSubmitButton = postFormElement.querySelector(
-  ".modal__submit-button"
-);
-const postCloseButton = createPostModal.querySelector(".modal__close-button");
-const postLinkInput = createPostModal.querySelector("#image-link-input");
-const postCaptionInput = createPostModal.querySelector("#caption-input");
+const newPostModal = document.querySelector("#new-post-modal");
+const newPostForm = document.forms["new-post"];
+const newPostSubmitButton = newPostForm.querySelector(".modal__submit-button");
+const newPostCloseButton = newPostModal.querySelector(".modal__close-button");
+const newPostLinkInput = newPostModal.querySelector("#image-link-input");
+const newPostCaptionInput = newPostModal.querySelector("#caption-input");
 
 // card template variables
 const cardTemplate = document.querySelector("#card-template");
 const cardsList = document.querySelector(".cards__list");
 
-// variables to hold the selected card and ID -- will be defined when a user clicks on a card
-let selectedCard;
-let selectedCardID;
-
 // delete post
-const deleteModal = document.querySelector("#delete-modal");
-const deleteFormElement = document.forms["delete-post"];
+const deletePostModal = document.querySelector("#delete-modal");
+const deletePostForm = document.forms["delete-post"];
 
 // preview image elements
 const previewModal = document.querySelector("#preview-modal");
@@ -88,6 +96,10 @@ const previewModalCaption = previewModal.querySelector(".modal__caption");
 const previewModalCloseButton = previewModal.querySelector(
   ".modal__close-button_type_preview"
 );
+
+// variables to hold the selected card and ID -- will be defined when a user clicks on a card
+let selectedCard;
+let selectedCardID;
 
 /****************************
 PAGE SETUP
@@ -147,11 +159,27 @@ function handleProfileFormSubmit(evt) {
   evt.preventDefault();
 
   api
-    .editUserInfo({ name: nameInput.value, about: jobInput.value })
+    .editUserInfo({
+      name: profileNameInput.value,
+      about: profileJobInput.value,
+    })
     .then((data) => {
       profileName.textContent = data.name;
       profileJob.textContent = data.about;
       closeModal(editProfileModal);
+    })
+    .catch(console.error);
+}
+
+// update avatar
+function handleAvatarFormSubmit(evt) {
+  evt.preventDefault();
+
+  api
+    .editProfilePicture(editAvatarInput.value)
+    .then((data) => {
+      profileAvatar.src = data.avatar;
+      closeModal(editAvatarModal);
     })
     .catch(console.error);
 }
@@ -161,7 +189,7 @@ function handlePostFormSubmit(evt) {
   evt.preventDefault();
 
   api
-    .addCard({ name: postCaptionInput.value, link: postLinkInput.value })
+    .addCard({ name: newPostCaptionInput.value, link: newPostLinkInput.value })
     .then((data) => {
       const newData = {
         name: data.name,
@@ -178,13 +206,13 @@ function handlePostFormSubmit(evt) {
       // disable submit button
       disableButton(newPostSubmitButton, settings);
 
-      closeModal(createPostModal);
+      closeModal(newPostModal);
     })
     .catch(console.error);
 }
 
 // delete card from screen
-function handleDeleteSubmit(evt) {
+function handleDeleteFormSubmit(evt) {
   evt.preventDefault();
   api
     .deleteCard(selectedCardID)
@@ -192,7 +220,7 @@ function handleDeleteSubmit(evt) {
       // remove the card from the DOM
       selectedCard.remove();
       // close the modal
-      closeModal(deleteModal);
+      closeModal(deletePostModal);
     })
     .catch(console.error);
 }
@@ -202,7 +230,7 @@ function handleDeleteCard(cardElement, cardId) {
   // set the selected card & id to what was clicked
   selectedCard = cardElement;
   selectedCardID = cardId;
-  openModal(deleteModal);
+  openModal(deletePostModal);
 }
 
 // toggle like button
@@ -216,6 +244,7 @@ function handleLike(evt, cardId) {
     .catch(console.error);
 }
 
+// get card element details
 function getCardElement(data) {
   // clone the template
   const cardElement = cardTemplate.content
@@ -225,8 +254,6 @@ function getCardElement(data) {
   const cardTitle = cardElement.querySelector(".card__title");
   const cardLikeButton = cardElement.querySelector(".card__like-button");
   const cardTrashButton = cardElement.querySelector(".card__trash-button");
-
-  // IF THE CARD IS LIKED, SET TH EINITIAL CLASS ON THE CARD
 
   // change image link, image alt text, and card title
   cardImage.src = data.link;
@@ -260,21 +287,36 @@ function getCardElement(data) {
 }
 
 /****************************
-ACTIONS
+OPEN MODALS
 ****************************/
 
 // open profile modal
-profileEditButton.addEventListener("click", () => {
-  nameInput.value = profileName.textContent;
-  jobInput.value = profileJob.textContent;
-  resetValidation(profileFormElement, [nameInput, jobInput], settings); // clear the validation errors
+editProfileButton.addEventListener("click", () => {
+  profileNameInput.value = profileName.textContent;
+  profileJobInput.value = profileJob.textContent;
+  resetValidation(
+    editProfileForm,
+    [profileNameInput, profileJobInput],
+    settings
+  ); // clear the validation errors
   openModal(editProfileModal);
 });
 
 // open new post modal
 newPostButton.addEventListener("click", () => {
-  openModal(createPostModal);
+  openModal(newPostModal);
 });
+
+// open edit avatar modal
+editAvatarButton.addEventListener("click", () => {
+  // clear validation errors
+  resetValidation(editAvatarForm, [editAvatarInput], settings);
+  openModal(editAvatarModal);
+});
+
+/****************************
+CLOSE MODALS
+****************************/
 
 // Find all close buttons
 const closeButtons = document.querySelectorAll(".modal__close-button");
@@ -295,13 +337,20 @@ allModals.forEach((modal) => {
   });
 });
 
+/****************************
+SUBMIT FORM CONTENT
+****************************/
+
 // save new name & description in profile modal
-profileFormElement.addEventListener("submit", handleProfileFormSubmit);
+editProfileForm.addEventListener("submit", handleProfileFormSubmit);
+
+// save new profile picture
+editAvatarForm.addEventListener("submit", handleAvatarFormSubmit);
 
 // save image & caption form
-postFormElement.addEventListener("submit", handlePostFormSubmit);
+newPostForm.addEventListener("submit", handlePostFormSubmit);
 
 // delete the card when clicking on the
-deleteFormElement.addEventListener("submit", handleDeleteSubmit);
+deletePostForm.addEventListener("submit", handleDeleteFormSubmit);
 
 enableValidation(settings);
