@@ -8,6 +8,7 @@ import {
 import "./index.css";
 import { Api } from "../utils/Api.js";
 import { apiKey } from "../utils/constants.js";
+import { setButtonText } from "../utils/helpers.js";
 
 /****************************
 CARD INFORMATION
@@ -158,6 +159,10 @@ function closeModal(modal) {
 function handleProfileFormSubmit(evt) {
   evt.preventDefault();
 
+  const submitButton = evt.submitter;
+  // Display "Saving..." when request being sent
+  setButtonText(submitButton, true);
+
   api
     .editUserInfo({
       name: profileNameInput.value,
@@ -168,12 +173,20 @@ function handleProfileFormSubmit(evt) {
       profileJob.textContent = data.about;
       closeModal(editProfileModal);
     })
-    .catch(console.error);
+    .catch(console.error)
+    .finally(() => {
+      // change back to "Save" once complete
+      setButtonText(submitButton, false);
+    });
 }
 
 // update avatar
 function handleAvatarFormSubmit(evt) {
   evt.preventDefault();
+
+  const submitButton = evt.submitter;
+  // Display "Saving..." when request being sent
+  setButtonText(submitButton, true);
 
   api
     .editProfilePicture(editAvatarInput.value)
@@ -181,12 +194,20 @@ function handleAvatarFormSubmit(evt) {
       profileAvatar.src = data.avatar;
       closeModal(editAvatarModal);
     })
-    .catch(console.error);
+    .catch(console.error)
+    .finally(() => {
+      // change back to "Save" once complete
+      setButtonText(submitButton, false);
+    });
 }
 
 // add new card
 function handlePostFormSubmit(evt) {
   evt.preventDefault();
+
+  const submitButton = evt.submitter;
+  // Display "Saving..." when request being sent
+  setButtonText(submitButton, true);
 
   api
     .addCard({ name: newPostCaptionInput.value, link: newPostLinkInput.value })
@@ -194,6 +215,7 @@ function handlePostFormSubmit(evt) {
       const newData = {
         name: data.name,
         link: data.link,
+        _id: data._id,
       };
 
       // add card to browser
@@ -208,12 +230,21 @@ function handlePostFormSubmit(evt) {
 
       closeModal(newPostModal);
     })
-    .catch(console.error);
+    .catch(console.error)
+    .finally(() => {
+      // change back to "Save" once complete
+      setButtonText(submitButton, false);
+    });
 }
 
 // delete card from screen
 function handleDeleteFormSubmit(evt) {
   evt.preventDefault();
+
+  const submitButton = evt.submitter;
+  // Display "Saving..." when request being sent
+  setButtonText(submitButton, true, "Deleting...", "Delete");
+
   api
     .deleteCard(selectedCardID)
     .then(() => {
@@ -222,7 +253,11 @@ function handleDeleteFormSubmit(evt) {
       // close the modal
       closeModal(deletePostModal);
     })
-    .catch(console.error);
+    .catch(console.error)
+    .finally(() => {
+      // change back to "Save" once complete
+      setButtonText(submitButton, false, "Deleting...", "Delete");
+    });
 }
 
 // open delete confirmation modal
