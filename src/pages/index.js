@@ -89,6 +89,7 @@ const cardsList = document.querySelector(".cards__list");
 // delete post
 const deletePostModal = document.querySelector("#delete-modal");
 const deletePostForm = document.forms["delete-post"];
+const deletePostCancelButton = document.querySelector(".modal__cancel-button");
 
 // preview image elements
 const previewModal = document.querySelector("#preview-modal");
@@ -122,7 +123,7 @@ api
     // render initial cards
     cards.forEach((item) => {
       const cardContent = getCardElement(item);
-      cardsList.prepend(cardContent);
+      cardsList.append(cardContent);
     });
 
     // set user profile
@@ -192,6 +193,8 @@ function handleAvatarFormSubmit(evt) {
     .editProfilePicture(editAvatarInput.value)
     .then((data) => {
       profileAvatar.src = data.avatar;
+      evt.target.reset(); // reset the form
+      disableButton(submitButton, settings);
       closeModal(editAvatarModal);
     })
     .catch(console.error)
@@ -220,7 +223,7 @@ function handlePostFormSubmit(evt) {
 
       // add card to browser
       const newCardContent = getCardElement(newData);
-      cardsList.prepend(newCardContent);
+      cardsList.append(newCardContent);
 
       // reset input values
       evt.target.reset();
@@ -385,7 +388,12 @@ editAvatarForm.addEventListener("submit", handleAvatarFormSubmit);
 // save image & caption form
 newPostForm.addEventListener("submit", handlePostFormSubmit);
 
-// delete the card when clicking on the
+// delete the card when clicking the delete button
 deletePostForm.addEventListener("submit", handleDeleteFormSubmit);
+
+// close delete post modal when clicking the cancel button
+deletePostCancelButton.addEventListener("click", () => {
+  closeModal(deletePostModal);
+});
 
 enableValidation(settings);
