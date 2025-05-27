@@ -223,7 +223,7 @@ function handlePostFormSubmit(evt) {
 
       // add card to browser
       const newCardContent = getCardElement(newData);
-      cardsList.append(newCardContent);
+      cardsList.prepend(newCardContent);
 
       // reset input values
       evt.target.reset();

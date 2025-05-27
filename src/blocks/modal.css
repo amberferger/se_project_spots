@@ -233,6 +233,17 @@ MEDIA SCREEN
     width: 100%;
   }
 
+  .modal__delete-button {
+    height: 52px;
+    width: 156px;
+  }
+
+  .modal__button-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+
   .modal__container_type_preview {
     padding: 0px;
     max-width: 90vw;
@@ -241,5 +252,19 @@ MEDIA SCREEN
   .modal__close-button_type_preview {
     top: -38px;
     right: -7px;
+  }
+
+  .modal__close-button_type_delete {
+    top: -45px;
+    right: -7px;
+  }
+
+  .modal__delete-confirmation {
+    margin-bottom: 20px;
+  }
+
+  .modal__container_type_delete {
+    max-width: 100%;
+    height: auto;
   }
 }
